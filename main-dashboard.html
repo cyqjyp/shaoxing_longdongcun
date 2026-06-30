@@ -1,0 +1,1102 @@
+<!DOCTYPE html><html class="dark" lang="zh-CN" style=""><svg class="inline-defs-container" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"></svg><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>龙东村生活用水管理平台</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#2b313c",
+                        "surface-variant": "#2f3540",
+                        "on-primary-fixed": "#002022",
+                        "on-secondary-fixed": "#00201c",
+                        "primary-fixed": "#74f5ff",
+                        "on-primary-container": "#006a71",
+                        "surface-container": "#1a202a",
+                        "secondary": "#59dbc7",
+                        "tertiary-fixed-dim": "#40deb3",
+                        "on-tertiary-container": "#006d55",
+                        "on-surface-variant": "#b9cacb",
+                        "error": "#ffb4ab",
+                        "secondary-fixed": "#79f7e3",
+                        "tertiary": "#dcfff0",
+                        "on-background": "#dde2f1",
+                        "surface-tint": "#00dbe7",
+                        "surface-card": "#161E2D",
+                        "tertiary-fixed": "#65fbcf",
+                        "surface-container-high": "#242a35",
+                        "on-primary": "#00363a",
+                        "on-primary-fixed-variant": "#004f54",
+                        "on-error": "#690005",
+                        "secondary-fixed-dim": "#59dbc7",
+                        "status-running": "#00FF41",
+                        "outline": "#849495",
+                        "status-fault": "#FF3131",
+                        "background": "#0e141e",
+                        "on-tertiary": "#00382a",
+                        "status-warning": "#F59E0B",
+                        "outline-variant": "#3a494b",
+                        "on-surface": "#dde2f1",
+                        "on-tertiary-fixed-variant": "#00513e",
+                        "surface-bright": "#333945",
+                        "surface-container-lowest": "#080e18",
+                        "chart-teal": "#00A896",
+                        "surface": "#0e141e",
+                        "error-container": "#93000a",
+                        "tertiary-container": "#5bf3c7",
+                        "primary-fixed-dim": "#00dbe7",
+                        "on-secondary-container": "#00332c",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#161c26",
+                        "inverse-primary": "#00696f",
+                        "surface-container-highest": "#2f3540",
+                        "primary": "#e1fdff",
+                        "primary-container": "#00f2ff",
+                        "inverse-surface": "#dde2f1",
+                        "chart-blue": "#3B82F6",
+                        "status-stopped": "#94A3B8",
+                        "on-secondary": "#003731",
+                        "surface-dim": "#0e141e",
+                        "chart-cyan": "#00F2FF",
+                        "secondary-container": "#00a694",
+                        "on-tertiary-fixed": "#002117",
+                        "on-secondary-fixed-variant": "#005047"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "breakpoint-desktop": "1440px",
+                        "internal-padding": "20px",
+                        "grid-columns": "12",
+                        "container-padding": "24px",
+                        "widget-gap": "16px",
+                        "breakpoint-tablet": "1024px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "data-display": ["JetBrains Mono"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "label-sm": ["JetBrains Mono"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-md": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg": ["38px", {"lineHeight": "48px", "fontWeight": "600"}],
+                        "data-display": ["32px", {"lineHeight": "38px", "fontWeight": "700"}],
+                        "display-lg": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "headline-md": ["28px", {"lineHeight": "38px", "fontWeight": "600"}],
+                        "body-lg": ["22px", {"lineHeight": "32px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0B111B;
+            color: #dde2f1;
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 18px;
+            overflow: hidden;
+        }
+        html, body {
+            height: 100%;
+        }
+        .dashboard-grid {
+            grid-template-rows: minmax(0, 1fr) minmax(240px, 0.46fr);
+            align-items: stretch;
+        }
+        .dashboard-grid > section {
+            min-height: 0;
+        }
+        .sidebar-column {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-height: 0;
+        }
+        .sidebar-panels {
+            flex: 1 1 auto;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .water-quality-panel {
+            flex: 1 1 0;
+            min-height: 0;
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+        }
+        .water-quality-panel .panel-header {
+            margin-bottom: 6px;
+            flex-shrink: 0;
+        }
+        .water-quality-panel .panel-title {
+            font-size: 17px;
+            line-height: 24px;
+        }
+        .water-panel-body {
+            flex: 1 1 auto;
+            min-height: 0;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+            align-content: stretch;
+        }
+        .water-panel-body--quad {
+            grid-template-rows: repeat(2, minmax(0, 1fr));
+        }
+        .water-panel-body--dual {
+            grid-template-rows: minmax(0, 1fr);
+        }
+        .water-metric-cell {
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .water-metric-cell .metric-value {
+            font-size: 18px;
+            line-height: 24px;
+        }
+        .water-quality-panel .panel-footer {
+            margin-top: auto;
+            flex-shrink: 0;
+        }
+        .glass-card {
+            background: rgba(22, 30, 45, 0.8);
+            backdrop-filter: blur(12px);
+            border-left: 2px solid #00dbe7;
+            box-shadow: inset 0 0 10px rgba(0, 219, 231, 0.05);
+        }
+        .glow-cyan {
+            text-shadow: 0 0 12px rgba(0, 219, 231, 0.6);
+        }
+        .glow-border {
+            box-shadow: 0 0 12px rgba(0, 219, 231, 0.2);
+        }
+        .chart-grid {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #3a494b; border-radius: 10px; }
+        .nav-item-glow:active { transform: scale(0.98); }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .animate-spin-slow {
+            animation: spin 8s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes subtle-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+        .animate-subtle-pulse {
+            animation: subtle-pulse 2s infinite ease-in-out;
+        }
+        #water-quality-popup, #trend-comparison-tooltip {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            background: rgba(8, 14, 24, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 219, 231, 0.4);
+            border-radius: 0.5rem;
+            box-shadow: 0 0 20px rgba(0, 219, 231, 0.2);
+            pointer-events: auto;
+        }
+        #water-quality-popup {
+            width: 340px;
+            padding: 12px;
+        }
+        #popup-chart {
+            position: relative;
+        }
+        #popup-chart svg {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .chart-hover-tooltip,
+        .liquid-level-tooltip {
+            position: absolute;
+            display: none;
+            pointer-events: none;
+            z-index: 10;
+            background: rgba(8, 14, 24, 0.96);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 219, 231, 0.35);
+            border-radius: 0.375rem;
+            padding: 8px 10px;
+            font-size: 12px;
+            line-height: 1.5;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+            min-width: 112px;
+        }
+        .liquid-level-tooltip.visible,
+        .chart-hover-tooltip.visible {
+            display: block;
+        }
+        .liquid-level-tooltip .tooltip-time,
+        .chart-hover-tooltip .tooltip-time {
+            color: #b9cacb;
+            font-size: 11px;
+            margin-bottom: 4px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .liquid-level-tooltip .tooltip-row,
+        .chart-hover-tooltip .tooltip-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .liquid-level-tooltip .tooltip-row + .tooltip-row {
+            margin-top: 2px;
+        }
+        .liquid-level-tooltip .tooltip-dot,
+        .chart-hover-tooltip .tooltip-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .liquid-level-tooltip .tooltip-label,
+        .chart-hover-tooltip .tooltip-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #b9cacb;
+        }
+        .liquid-level-tooltip .tooltip-value,
+        .chart-hover-tooltip .tooltip-value {
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        #liquid-level-chart {
+            position: relative;
+            min-height: 72px;
+            flex: 1 1 auto;
+        }
+        #liquid-level-chart svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        #trend-comparison-tooltip {
+            padding: 10px;
+            min-width: 200px;
+        }
+        #water-quality-popup::before, #trend-comparison-tooltip::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            box-shadow: inset 0 0 10px rgba(0, 219, 231, 0.1);
+            pointer-events: none;
+        }
+        .water-quality-item {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .water-quality-item:hover {
+            background-color: rgba(0, 219, 231, 0.15) !important;
+            border-color: rgba(0, 219, 231, 0.4) !important;
+        }
+        .metric-limit {
+            font-size: 10px;
+            color: #849495;
+            opacity: 0.85;
+            margin-top: 1px;
+            line-height: 1.2;
+        }
+        .chart-hover-tooltip .tooltip-limit {
+            color: #849495;
+            font-size: 10px;
+            margin-top: 4px;
+            padding-top: 4px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .trend-trigger {
+            cursor: pointer;
+        }
+        @keyframes marquee-vertical {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        .animate-marquee-vertical {
+            animation: marquee-vertical 10s linear infinite;
+        }
+        .animate-marquee-vertical:hover {
+            animation-play-state: paused;
+        }
+        #real-time-alarm-module.collapsed {
+            height: 48px;
+            width: 152px;
+        }
+        #real-time-alarm-module.collapsed #alarm-list-container {
+            display: none;
+        }
+        #real-time-alarm-module.collapsed #toggle-alarm-btn {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col bg-background"><svg class="inline-defs-container" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"></svg>
+<!-- Top Navigation Bar -->
+<header class="flex shrink-0 justify-between items-center h-20 px-internal-padding w-full z-50 bg-surface-container-lowest/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-lg shadow-primary-container/10">
+<div class="flex items-center gap-6">
+<h1 class="text-headline-md font-headline-md font-bold text-primary-fixed-dim drop-shadow-[0_0_8px_rgba(0,219,231,0.6)]">龙东村生活用水管理平台</h1>
+<nav class="hidden md:flex gap-8 ml-12">
+<a class="text-primary-fixed-dim border-b-2 border-primary-fixed-dim font-bold pb-1 font-label-sm text-label-sm transition-all duration-200" href="#">综合概览</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary-fixed transition-colors font-label-sm text-label-sm" href="#">运行监控</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary-fixed transition-colors font-label-sm text-label-sm" href="#">水质分析</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary-fixed transition-colors font-label-sm text-label-sm" href="#">报警中心</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary-fixed transition-colors font-label-sm text-label-sm" href="#">资产管理</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary-fixed">settings</span>
+<div class="relative">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary-fixed">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-error rounded-full animate-pulse"></span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary-fixed">account_circle</span>
+</div>
+</header>
+<div class="flex flex-1 min-h-0 overflow-hidden flex-col">
+<!-- Main Content Area -->
+<main class="dashboard-grid flex-1 min-h-0 grid grid-cols-12 gap-3 overflow-y-auto h-full px-internal-padding pb-4 pt-2">
+<!-- Zone 1: 3D Network Map -->
+<section class="col-span-12 lg:col-span-8 row-span-1 relative rounded-xl overflow-hidden border border-outline-variant/30 shadow-2xl p-3 lg:col-start-1 min-h-0">
+<div class="absolute inset-3 bg-surface-container-lowest rounded-lg overflow-hidden">
+<img alt="3D aerial view of a modern residential community" class="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXnjB9h8CKe4DQ2pi_kuSPEJOzFFBaYbpJoMLwPvbKkfF-E1xdHePcWHVrdyRvfwMSQy0rae9L78rmPcN-eJplP_9XBZKYP_nSy8sHsFMlsl7FUqcppZYhH4AfVdTnxTAaNa-zWt2KJ8uULuz81VPT2KmFpvnnx2Fww5Si3KM7JTcKIfe0kIFIE8DBgUJCXu_PUMt2mq67yZCaqldVhH6GtXpPs5w8aUWfUehHn03j7nrPQwsgP5DdHWyJEL2LJqPxzvS9y_PUMMkl">
+</div>
+<!-- Map Overlays -->
+<div class="absolute top-4 left-4 flex gap-2">
+<button class="glass-card px-3 py-2 rounded-full flex items-center gap-1 border border-primary/20 text-primary-fixed-dim hover:bg-primary/20 transition-colors active:scale-95" style="transition: 0.3s;">
+<span class="material-symbols-outlined text-[22px]">chevron_left</span>
+<span class="text-label-sm">返回上一级</span>
+</button>
+</div>
+<div class="absolute bottom-4 right-4 flex flex-col gap-2">
+<button class="glass-card p-2 rounded-lg border border-outline-variant/30 hover:bg-primary/20"><span class="material-symbols-outlined">add</span></button>
+<button class="glass-card p-2 rounded-lg border border-outline-variant/30 hover:bg-primary/20"><span class="material-symbols-outlined">remove</span></button>
+<button class="glass-card p-2 rounded-lg border border-outline-variant/30 hover:bg-primary/20" style="transition: 0.3s;"><span class="material-symbols-outlined">layers</span></button>
+</div>
+</section>
+<!-- Zone 2: Sidebar Content -->
+<section class="sidebar-column col-span-12 lg:col-span-4 row-span-1 min-h-0">
+<!-- Basic Info -->
+<section class="glass-card shrink-0 p-2.5 rounded-xl flex flex-col border-l-2 border-primary-fixed-dim bg-surface-container-low/40 backdrop-blur-xl" style="transition: 0.3s;">
+<div class="flex items-center gap-2 mb-1.5">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">info</span>
+<h2 class="font-headline-md text-body-md font-bold">基础信息</h2>
+</div>
+<div class="grid grid-cols-4 gap-x-2 gap-y-1.5">
+<div class="flex flex-col min-w-0">
+<span class="text-[12px] text-on-surface-variant uppercase truncate">龙东村</span>
+<span class="text-body-md font-bold text-primary-fixed-dim leading-tight">343<span class="text-[12px] ml-0.5">户</span></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[12px] text-on-surface-variant uppercase truncate">分区计量表</span>
+<span class="text-body-md font-bold text-primary-fixed-dim leading-tight">14<span class="text-[12px] ml-0.5">个</span></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[12px] text-on-surface-variant uppercase truncate">供水泵站</span>
+<span class="text-body-md font-bold text-primary-fixed-dim leading-tight">2<span class="text-[12px] ml-0.5">座</span></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[12px] text-on-surface-variant uppercase truncate">水质仪</span>
+<span class="text-body-md font-bold text-primary-fixed-dim leading-tight">1<span class="text-[12px] ml-0.5">个</span></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[12px] text-on-surface-variant uppercase truncate">液位监测仪</span>
+<span class="text-body-md font-bold text-primary-fixed-dim leading-tight">1<span class="text-[12px] ml-0.5">个</span></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[12px] text-on-surface-variant uppercase truncate">户表</span>
+<span class="text-body-md font-bold text-primary-fixed-dim leading-tight">498<span class="text-[12px] ml-0.5">个</span></span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-[12px] text-on-surface-variant uppercase truncate">漏损率</span>
+<span class="text-body-md font-bold text-primary-fixed-dim leading-tight">5.4%</span>
+</div>
+</div>
+</section>
+<div class="sidebar-panels">
+<!-- Source Water Panel -->
+<div class="glass-card water-quality-panel rounded-xl flex flex-col" style="transition: 0.3s;">
+<div class="flex justify-between items-center panel-header shrink-0">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">waves</span>
+<h2 class="panel-title font-bold">水源地水质监测仪</h2>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[12px] text-on-surface-variant">在线</span>
+<span class="w-2 h-2 bg-status-running rounded-full shadow-[0_0_8px_rgba(0,255,65,0.6)]"></span>
+</div>
+</div>
+<div class="water-panel-body water-panel-body--quad">
+<div class="water-metric-cell bg-surface-container-high/40 rounded border border-outline-variant/10">
+<p class="text-[12px] text-on-surface-variant">总磷</p>
+<p class="metric-value font-data-display font-bold text-secondary">0.01<span class="text-[12px] ml-0.5 font-normal">mg/L</span></p>
+<p class="metric-limit">限值≤0.2</p>
+</div>
+<div class="water-metric-cell bg-surface-container-high/40 rounded border border-outline-variant/10">
+<p class="text-[12px] text-on-surface-variant">pH值</p>
+<p class="metric-value font-data-display font-bold text-secondary">7.08</p>
+<p class="metric-limit">限值 6.0-9.0</p>
+</div>
+<div class="water-metric-cell bg-surface-container-high/40 rounded border border-outline-variant/10">
+<p class="text-[12px] text-on-surface-variant">溶解氧(DO)</p>
+<p class="metric-value font-data-display font-bold text-secondary">9.03<span class="text-[12px] ml-0.5 font-normal">mg/L</span></p>
+<p class="metric-limit">限值≥5.0</p>
+</div>
+<div class="water-metric-cell bg-surface-container-high/40 rounded border border-outline-variant/10">
+<p class="text-[12px] text-on-surface-variant">氨氮</p>
+<p class="metric-value font-data-display font-bold text-secondary">0.54<span class="text-[12px] ml-0.5 font-normal">mg/L</span></p>
+<p class="metric-limit">限值≤1.0</p>
+</div>
+</div>
+</div>
+<!-- Finished Water Panel -->
+<div class="glass-card water-quality-panel rounded-xl flex flex-col" style="transition: 0.3s;">
+<div class="flex justify-between items-center panel-header shrink-0">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">verified_user</span>
+<h2 class="panel-title font-bold">出厂水质监测仪</h2>
+</div>
+<div class="flex gap-1 items-center">
+<span class="text-[12px] text-on-surface-variant">在线</span>
+<span class="w-2 h-2 bg-status-running rounded-full"></span>
+</div>
+</div>
+<div class="water-panel-body water-panel-body--dual">
+<div class="water-metric-cell bg-surface-container-high/40 rounded border border-outline-variant/10">
+<p class="text-[12px] text-on-surface-variant">出厂余氯</p>
+<p class="metric-value font-data-display font-bold text-primary-fixed-dim">0.74<span class="text-[12px] ml-0.5 font-normal">mg/L</span></p>
+<p class="metric-limit">限值≥0.3</p>
+</div>
+<div class="water-metric-cell bg-surface-container-high/40 rounded border border-outline-variant/10">
+<p class="text-[12px] text-on-surface-variant">出厂浊度</p>
+<p class="metric-value font-data-display font-bold text-primary-fixed-dim">0.50<span class="text-[12px] ml-0.5 font-normal">NTU</span></p>
+<p class="metric-limit">限值≤1.0</p>
+</div>
+</div>
+<div class="panel-footer mt-2 py-1 px-2 bg-status-running/10 border border-status-running/30 rounded flex items-center justify-between">
+<span class="text-[12px] text-status-running">各项参数监测正常</span>
+<span class="material-symbols-outlined text-status-running text-[18px]">check_circle</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Zone 3: Bottom Widgets -->
+<!-- Pump Station Status -->
+<section class="col-span-12 lg:col-span-5 row-span-1 glass-card rounded-xl flex flex-col min-h-0 p-1.5" style="transition: 0.3s;">
+<div class="flex items-center gap-2 mb-0.5 shrink-0">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">factory</span>
+<h2 class="text-body-md font-bold">供水泵站</h2>
+</div>
+<div class="flex gap-3 flex-1 min-h-0 overflow-y-auto custom-scroll">
+<div class="flex-1 min-h-0 bg-surface-container-high/20 rounded-lg border border-outline-variant/20 flex flex-col p-1.5">
+<div class="flex justify-between items-center mb-1">
+<span class="text-label-sm font-bold text-secondary">1#&nbsp; 泵站A</span>
+<span class="text-[13px] px-2 py-0.5 bg-status-running/20 text-status-running rounded">运行中</span>
+</div>
+<div class="grid grid-cols-2 gap-y-2 mb-1"><div class=""><p class="text-[13px] text-on-surface-variant">进水压力</p><p class="font-data-display text-body-md text-primary">0.49<span class="text-label-sm ml-0.5">MPa</span></p></div><div class=""><p class="text-[13px] text-on-surface-variant">出水压力</p><p class="font-data-display text-body-md text-primary">0.64<span class="text-label-sm ml-0.5">MPa</span></p></div><div class=""><p class="text-[13px] text-on-surface-variant">瞬时流量</p><p class="font-data-display text-body-md text-primary">119.70<span class="text-label-sm ml-0.5">m³/h</span></p></div><div class=""><p class="text-[13px] text-on-surface-variant">供水总量</p><div class="flex items-center gap-1"><p class="font-data-display text-body-md text-primary">2.20<span class="text-label-sm ml-0.5">km³</span></p><span class="material-symbols-outlined text-status-running text-[18px] animate-subtle-pulse trend-trigger" data-change="0.12" data-rate="5.3" data-station="1">trending_up</span></div></div></div>
+<div class="border-t border-outline-variant/10 pt-0.5 mt-0.5">
+<p class="text-[12px] text-secondary font-bold mb-0.5">实时水质</p>
+<div class="grid grid-cols-3 gap-1.5">
+<div class="water-quality-item bg-surface-container-highest/30 p-1 rounded text-center border border-transparent" data-metric="余氯">
+<p class="text-[10px] text-on-surface-variant">余氯</p>
+<p class="text-[15px] text-secondary font-data-display font-bold leading-tight">0.90</p>
+<div class="flex flex-col items-center opacity-60">
+<span class="text-[10px] text-secondary">mg/L</span>
+<span class="metric-limit">限值≥0.5</span>
+</div>
+</div>
+<div class="water-quality-item bg-surface-container-highest/30 p-1 rounded text-center border border-transparent" data-metric="浊度">
+<p class="text-[10px] text-on-surface-variant">浊度</p>
+<p class="text-[15px] text-secondary font-data-display font-bold leading-tight">0.19</p>
+<div class="flex flex-col items-center opacity-60">
+<span class="text-[10px] text-secondary">NTU</span>
+<span class="metric-limit">限值≤1</span>
+</div>
+</div>
+<div class="water-quality-item bg-surface-container-highest/30 p-1 rounded text-center border border-transparent" data-metric="pH值">
+<p class="text-[10px] text-on-surface-variant">pH值</p>
+<p class="text-[15px] text-secondary font-data-display font-bold leading-tight">7.16</p>
+<div class="flex flex-col items-center opacity-60">
+<span class="metric-limit">限值 6.5-8.5</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex-1 min-h-0 bg-surface-container-high/20 rounded-lg border border-outline-variant/20 flex flex-col p-1.5">
+<div class="flex justify-between items-center mb-1">
+<span class="text-label-sm font-bold text-secondary">2# 泵站B</span>
+<span class="text-[13px] px-2 py-0.5 bg-status-running/20 text-status-running rounded">运行中</span>
+</div>
+<div class="grid grid-cols-2 gap-y-2 mb-1"><div class=""><p class="text-[13px] text-on-surface-variant">进水压力</p><p class="font-data-display text-body-md text-primary">0.18<span class="text-label-sm ml-0.5">MPa</span></p></div><div class=""><p class="text-[13px] text-on-surface-variant">出水压力</p><p class="font-data-display text-body-md text-primary">0.51<span class="text-label-sm ml-0.5">MPa</span></p></div><div class=""><p class="text-[13px] text-on-surface-variant">瞬时流量</p><p class="font-data-display text-body-md text-primary">94.83<span class="text-label-sm ml-0.5">m³/h</span></p></div><div class=""><p class="text-[13px] text-on-surface-variant">供水总量</p><div class="flex items-center gap-1"><p class="font-data-display text-body-md text-primary">1.98<span class="text-label-sm ml-0.5">km³</span></p><span class="material-symbols-outlined text-error text-[18px] animate-subtle-pulse trend-trigger" data-change="-0.08" data-rate="-4.2" data-station="2">trending_down</span></div></div></div>
+</div>
+</div>
+</section>
+<!-- Liquid Level Monitoring -->
+<section class="col-span-12 lg:col-span-4 row-span-1 glass-card p-1.5 rounded-xl flex flex-col min-h-0" style="transition: 0.3s;"><div class="flex items-center justify-between mb-1 shrink-0">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">water_drop</span>
+<h2 class="text-body-md font-bold">液位监控</h2>
+</div>
+<div class="flex gap-2">
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-running"></span>
+<span class="text-[11px] text-on-surface-variant">清水池: 正常</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-running"></span>
+<span class="text-[11px] text-on-surface-variant">原水池: 正常</span>
+</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-1 min-h-0"><div class="flex justify-between items-center px-1 shrink-0">
+<div class="flex gap-4">
+<div>
+<p class="text-[11px] text-on-surface-variant">清水池液位</p>
+<p class="text-body-md font-bold text-primary-fixed-dim font-data-display leading-tight">3.81<span class="text-[12px] ml-0.5">m</span></p>
+</div>
+<div>
+<p class="text-[11px] text-on-surface-variant">原水池液位</p>
+<p class="text-body-md font-bold text-status-warning font-data-display leading-tight">2.43<span class="text-[12px] ml-0.5">m</span></p>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-end gap-3 px-1 shrink-0">
+<div class="flex items-center gap-1.5">
+<span class="inline-block w-4 h-0.5 rounded-full bg-primary-fixed-dim"></span>
+<span class="text-[11px] text-on-surface-variant">清水池</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="inline-block w-4 h-0.5 rounded-full bg-status-warning"></span>
+<span class="text-[11px] text-on-surface-variant">原水池 (24h)</span>
+</div>
+</div>
+<div class="flex-1 min-h-[72px] bg-surface-container-highest/10 rounded-lg border border-outline-variant/20" id="liquid-level-chart"></div>
+</div></section>
+<!-- Valve Controls -->
+<section class="col-span-12 lg:col-span-3 row-span-1 glass-card p-1.5 rounded-xl flex flex-col min-h-0" style="transition: 0.3s;">
+<div class="flex items-center gap-2 mb-1 shrink-0">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">settings_input_component</span>
+<h2 class="text-body-md font-bold">阀门控制</h2>
+</div>
+<div class="flex-1 flex flex-col gap-1 min-h-0 overflow-y-auto custom-scroll">
+<div class="p-1.5 bg-surface-container-high/40 rounded border border-outline-variant/10 flex items-center gap-2">
+<div class="w-7 h-7 rounded-full border-2 border-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary text-[18px] animate-spin-slow">published_with_changes</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center"><span class="text-[14px] font-bold">主管道进水阀</span><span class="text-[12px] text-status-running">已开启</span></div>
+<div class="w-full bg-outline-variant/20 h-1.5 rounded-full mt-1.5 overflow-hidden"><div class="bg-secondary h-full" style="width: 85%"></div></div>
+<div class="flex justify-between mt-1"><span class="text-[12px] text-on-surface-variant">开度</span><span class="text-[12px] font-bold">85%</span></div>
+</div>
+</div>
+<div class="p-1.5 bg-surface-container-high/40 rounded border border-outline-variant/10 flex items-center gap-2">
+<div class="w-7 h-7 rounded-full border-2 border-outline-variant/50 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-outline text-[18px]">lock</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center"><span class="text-[14px] font-bold">旁路泄压阀</span><span class="text-[12px] text-status-stopped">全关</span></div>
+<div class="w-full bg-outline-variant/20 h-1.5 rounded-full mt-1.5 overflow-hidden"><div class="bg-outline h-full" style="width: 0%"></div></div>
+<div class="flex justify-between mt-1"><span class="text-[12px] text-on-surface-variant">开度</span><span class="text-[12px] font-bold">0%</span></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Comparison Tooltip -->
+<div class="p-3" id="trend-comparison-tooltip" style="display: none;">
+<div class="flex flex-col gap-1.5">
+<div class="text-[13px] text-on-surface-variant border-b border-outline-variant/20 pb-1 mb-0.5">供水总量对比分析</div>
+<div class="flex justify-between gap-4 items-center">
+<span class="text-[14px]">较昨日值变化:</span>
+<span class="text-label-sm font-bold font-data-display text-error" id="tooltip-change">-0.08 km³</span>
+</div>
+<div class="flex justify-between gap-4 items-center">
+<span class="text-[14px]">变化率:</span>
+<span class="text-label-sm font-bold font-data-display text-error" id="tooltip-rate">-4.2%</span>
+</div>
+</div>
+</div>
+<!-- Floating Window for Trend Chart -->
+<div id="water-quality-popup" style="display: none;">
+<div class="flex items-center justify-between mb-1">
+<h3 class="text-label-sm font-bold text-primary-fixed-dim flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">monitoring</span>
+<span id="popup-title">pH值</span>
+</h3>
+<div class="flex items-center gap-1.5" id="popup-legend">
+<span class="w-2 h-2 rounded-full" id="popup-legend-dot"></span>
+<span class="text-[12px] text-on-surface-variant" id="popup-legend-label">pH值</span>
+</div>
+</div>
+<p class="text-[12px] text-on-surface-variant mb-1">水质趋势（近24小时）</p>
+<p class="metric-limit mb-2" id="popup-limit">限值 6.5-8.5</p>
+<div class="w-full rounded overflow-hidden bg-surface-container-lowest/50 border border-outline-variant/20" id="popup-chart"></div>
+</div>
+<script>
+    const WATER_METRICS = {
+        '余氯': {
+            unit: 'mg/L',
+            color: '#00F2FF',
+            limit: '限值≥0.5',
+            yMin: 0,
+            yMax: 1.0,
+            yTicks: [0, 0.2, 0.4, 0.6, 0.8, 1.0],
+            data: [0.72, 0.68, 0.75, 0.70, 0.82, 0.88, 0.91, 0.85, 0.78, 0.83, 0.90, 0.87, 0.92, 0.89, 0.86, 0.91, 0.88, 0.85, 0.90, 0.87, 0.89, 0.86, 0.88, 0.90]
+        },
+        '浊度': {
+            unit: 'NTU',
+            color: '#F59E0B',
+            limit: '限值≤1',
+            yMin: 0,
+            yMax: 0.7,
+            yTicks: [0, 0.14, 0.28, 0.42, 0.56, 0.7],
+            data: [0.12, 0.15, 0.22, 0.35, 0.28, 0.18, 0.25, 0.42, 0.38, 0.55, 0.48, 0.32, 0.19, 0.30, 0.45, 0.62, 0.38, 0.20, 0.15, 0.19, 0.28, 0.35, 0.22, 0.19]
+        },
+        'pH值': {
+            unit: '',
+            color: '#A78BFA',
+            limit: '限值 6.5-8.5',
+            yMin: 6,
+            yMax: 8,
+            yTicks: [6, 6.4, 6.8, 7.2, 7.6, 8],
+            data: [7.10, 7.12, 7.08, 7.15, 7.18, 7.14, 7.16, 7.13, 7.17, 7.15, 7.12, 7.16, 7.14, 7.18, 7.15, 7.13, 7.16, 7.14, 7.17, 7.15, 7.16, 7.14, 7.15, 7.16]
+        }
+    };
+
+    const X_LABELS = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'];
+
+    function formatChartHour(index) {
+        return `${String(index).padStart(2, '0')}:00`;
+    }
+
+    function bindChartHover(container, svg, { pad, plotW, plotH, pointCount, xAt, yAt, onHover, onLeave }) {
+        const hitArea = svg.querySelector('#chart-hit-area');
+        const crosshair = svg.querySelector('#chart-crosshair');
+        const hoverDot = svg.querySelector('#chart-hover-dot');
+        let tooltip = container.querySelector('.chart-hover-tooltip');
+        if (!tooltip) {
+            tooltip = document.createElement('div');
+            tooltip.className = 'chart-hover-tooltip';
+            container.appendChild(tooltip);
+        }
+
+        function hideHover() {
+            crosshair.setAttribute('opacity', '0');
+            hoverDot.setAttribute('opacity', '0');
+            tooltip.classList.remove('visible');
+            onLeave?.();
+        }
+
+        function showHover(index) {
+            const x = xAt(index);
+            const meta = onHover(index);
+            crosshair.setAttribute('x1', x);
+            crosshair.setAttribute('x2', x);
+            crosshair.setAttribute('opacity', '1');
+            hoverDot.setAttribute('cx', x);
+            hoverDot.setAttribute('cy', yAt(meta.value));
+            hoverDot.setAttribute('fill', meta.color);
+            hoverDot.setAttribute('opacity', '1');
+
+            tooltip.innerHTML = meta.html;
+            tooltip.classList.add('visible');
+
+            const containerRect = container.getBoundingClientRect();
+            const pt = svg.createSVGPoint();
+            pt.x = x;
+            pt.y = pad.top;
+            const screenPt = pt.matrixTransform(svg.getScreenCTM());
+            let left = screenPt.x - containerRect.left - tooltip.offsetWidth / 2;
+            let top = screenPt.y - containerRect.top - tooltip.offsetHeight - 10;
+            left = Math.max(4, Math.min(left, containerRect.width - tooltip.offsetWidth - 4));
+            top = Math.max(4, top);
+            tooltip.style.left = `${left}px`;
+            tooltip.style.top = `${top}px`;
+        }
+
+        function indexFromEvent(e) {
+            const pt = svg.createSVGPoint();
+            pt.x = e.clientX;
+            pt.y = e.clientY;
+            const loc = pt.matrixTransform(svg.getScreenCTM().inverse());
+            if (loc.x < pad.left || loc.x > pad.left + plotW || loc.y < pad.top || loc.y > pad.top + plotH) return null;
+            const idx = Math.round((loc.x - pad.left) / plotW * (pointCount - 1));
+            return Math.max(0, Math.min(pointCount - 1, idx));
+        }
+
+        hitArea.addEventListener('mousemove', (e) => {
+            const idx = indexFromEvent(e);
+            if (idx === null) { hideHover(); return; }
+            showHover(idx);
+        });
+        hitArea.addEventListener('mouseleave', hideHover);
+    }
+
+    function renderPopupChart(metricName) {
+        const config = WATER_METRICS[metricName];
+        const container = document.getElementById('popup-chart');
+        if (!config || !container) return;
+
+        const W = 316, H = 200;
+        const pad = { top: 8, right: 16, bottom: 28, left: 36 };
+        const plotW = W - pad.left - pad.right;
+        const plotH = H - pad.top - pad.bottom;
+        const { data, yMin, yMax, color, yTicks, unit, limit } = config;
+
+        const xAt = (i) => pad.left + (i / (data.length - 1)) * plotW;
+        const yAt = (v) => pad.top + plotH - ((v - yMin) / (yMax - yMin)) * plotH;
+
+        const gridLines = yTicks.map(tick => {
+            const y = yAt(tick);
+            return `<line x1="${pad.left}" y1="${y}" x2="${W - pad.right}" y2="${y}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                    <text x="${pad.left - 6}" y="${y + 3}" text-anchor="end" fill="#849495" font-size="9">${tick}</text>`;
+        }).join('');
+
+        const xLabels = X_LABELS.map((label, i) => {
+            const x = pad.left + (i / (X_LABELS.length - 1)) * plotW;
+            return `<text x="${x}" y="${H - 6}" text-anchor="middle" fill="#849495" font-size="9">${label}</text>`;
+        }).join('');
+
+        const linePoints = data.map((v, i) => `${xAt(i)},${yAt(v)}`).join(' ');
+        const areaPoints = `${xAt(0)},${yAt(yMin)} ${linePoints} ${xAt(data.length - 1)},${yAt(yMin)}`;
+
+        container.innerHTML = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${metricName}近24小时趋势">
+            ${gridLines}
+            ${xLabels}
+            <polygon points="${areaPoints}" fill="${color}" fill-opacity="0.08"/>
+            <polyline points="${linePoints}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+            <line id="chart-crosshair" x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + plotH}" stroke="${color}" stroke-width="1" stroke-dasharray="4 3" opacity="0"/>
+            <circle id="chart-hover-dot" cx="${pad.left}" cy="${pad.top}" r="4.5" fill="${color}" stroke="#0e141e" stroke-width="1.5" opacity="0"/>
+            <rect id="chart-hit-area" x="${pad.left}" y="${pad.top}" width="${plotW}" height="${plotH}" fill="transparent" cursor="crosshair"/>
+        </svg>`;
+
+        document.getElementById('popup-legend-dot').style.backgroundColor = color;
+        document.getElementById('popup-legend-label').innerText = metricName;
+        document.getElementById('popup-limit').innerText = limit;
+
+        const svg = container.querySelector('svg');
+        bindChartHover(container, svg, {
+            pad, plotW, plotH, pointCount: data.length, xAt, yAt,
+            onHover(index) {
+                const value = data[index];
+                const unitSuffix = unit ? ` ${unit}` : '';
+                const decimals = metricName === 'pH值' ? 2 : 2;
+                return {
+                    value,
+                    color,
+                    html: `<div class="tooltip-time">${formatChartHour(index)}</div>
+                        <div class="tooltip-row">
+                            <span class="tooltip-label"><span class="tooltip-dot" style="background:${color}"></span>${metricName}</span>
+                            <span class="tooltip-value" style="color:${color}">${value.toFixed(decimals)}${unitSuffix}</span>
+                        </div>
+                        <div class="tooltip-limit">${limit}</div>`
+                };
+            }
+        });
+    }
+
+    const popup = document.getElementById('water-quality-popup');
+    const popupTitle = document.getElementById('popup-title');
+    const metricItems = document.querySelectorAll('.water-quality-item');
+
+    metricItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const metricName = item.getAttribute('data-metric');
+            popupTitle.innerText = metricName;
+            renderPopupChart(metricName);
+
+            let left = e.clientX + 15;
+            let top = e.clientY + 15;
+            if (left + 340 > window.innerWidth) left = e.clientX - 355;
+            if (top + 280 > window.innerHeight) top = e.clientY - 295;
+
+            popup.style.left = `${left}px`;
+            popup.style.top = `${top}px`;
+            popup.style.display = 'block';
+        });
+    });
+
+    const LIQUID_LEVEL_SERIES = [
+        {
+            name: '清水池',
+            color: '#00F2FF',
+            dash: '',
+            data: [3.65, 3.72, 3.68, 3.75, 3.80, 3.78, 3.82, 3.79, 3.85, 3.81, 3.76, 3.83, 3.88, 3.82, 3.79, 3.84, 3.80, 3.78, 3.82, 3.85, 3.79, 3.83, 3.80, 3.81]
+        },
+        {
+            name: '原水池',
+            color: '#F59E0B',
+            dash: '6 4',
+            data: [2.35, 2.40, 2.38, 2.42, 2.45, 2.41, 2.44, 2.46, 2.43, 2.40, 2.38, 2.42, 2.44, 2.41, 2.39, 2.43, 2.45, 2.42, 2.40, 2.44, 2.42, 2.41, 2.43, 2.43]
+        }
+    ];
+
+    function renderLiquidLevelChart() {
+        const container = document.getElementById('liquid-level-chart');
+        if (!container) return;
+
+        const W = 400, H = 120;
+        const pad = { top: 6, right: 48, bottom: 20, left: 36 };
+        const plotW = W - pad.left - pad.right;
+        const plotH = H - pad.top - pad.bottom;
+        const yMin = 1.0, yMax = 4.5;
+        const yTicks = [1, 2, 3, 4];
+        const xLabels = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'];
+        const pointCount = LIQUID_LEVEL_SERIES[0].data.length;
+
+        const xAt = (i) => pad.left + (i / (pointCount - 1)) * plotW;
+        const yAt = (v) => pad.top + plotH - ((v - yMin) / (yMax - yMin)) * plotH;
+
+        const gridLines = yTicks.map(tick => {
+            const y = yAt(tick);
+            return `<line x1="${pad.left}" y1="${y}" x2="${W - pad.right}" y2="${y}" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+                    <text x="${pad.left - 8}" y="${y + 4}" text-anchor="end" fill="#b9cacb" font-size="11">${tick}m</text>`;
+        }).join('');
+
+        const xAxisLabels = xLabels.map((label, i) => {
+            const x = pad.left + (i / (xLabels.length - 1)) * plotW;
+            return `<text x="${x}" y="${H - 4}" text-anchor="middle" fill="#b9cacb" font-size="11">${label}</text>`;
+        }).join('');
+
+        const seriesLines = LIQUID_LEVEL_SERIES.map(series => {
+            const points = series.data.map((v, i) => `${xAt(i)},${yAt(v)}`).join(' ');
+            return `<polyline points="${points}" fill="none" stroke="${series.color}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"${series.dash ? ` stroke-dasharray="${series.dash}"` : ''}/>`;
+        }).join('');
+
+        const endMarkers = LIQUID_LEVEL_SERIES.map(series => {
+            const last = series.data.length - 1;
+            const v = series.data[last];
+            return `<circle cx="${xAt(last)}" cy="${yAt(v)}" r="3.5" fill="${series.color}" stroke="#0e141e" stroke-width="1.5"/>
+                    <text x="${xAt(last) + 8}" y="${yAt(v) + 4}" fill="${series.color}" font-size="11" font-weight="600">${v.toFixed(2)}m</text>`;
+        }).join('');
+
+        const hoverDots = LIQUID_LEVEL_SERIES.map((series, si) =>
+            series.data.map((v, i) =>
+                `<circle class="ll-hover-dot" data-series="${si}" data-index="${i}" cx="${xAt(i)}" cy="${yAt(v)}" r="4" fill="${series.color}" stroke="#0e141e" stroke-width="1.5" opacity="0"/>`
+            ).join('')
+        ).join('');
+
+        container.innerHTML = `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="液位近24小时趋势">
+            ${gridLines}
+            ${xAxisLabels}
+            <text x="${pad.left}" y="${pad.top - 2}" fill="#849495" font-size="10">液位 (m)</text>
+            ${seriesLines}
+            ${endMarkers}
+            <line id="ll-crosshair" x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + plotH}" stroke="rgba(0,242,255,0.45)" stroke-width="1" stroke-dasharray="4 3" opacity="0"/>
+            <g id="ll-hover-dots">${hoverDots}</g>
+            <rect id="ll-hit-area" x="${pad.left}" y="${pad.top}" width="${plotW}" height="${plotH}" fill="transparent" cursor="crosshair"/>
+        </svg>`;
+
+        let tooltip = container.querySelector('.chart-hover-tooltip');
+        if (!tooltip) {
+            tooltip = document.createElement('div');
+            tooltip.className = 'chart-hover-tooltip';
+            container.appendChild(tooltip);
+        }
+
+        const svg = container.querySelector('svg');
+        const hitArea = container.querySelector('#ll-hit-area');
+        const crosshair = container.querySelector('#ll-crosshair');
+        const hoverDotEls = container.querySelectorAll('.ll-hover-dot');
+
+        const chartMeta = { W, H, pad, plotW, plotH, pointCount, xAt, yAt };
+
+        function hideHover() {
+            crosshair.setAttribute('opacity', '0');
+            hoverDotEls.forEach(dot => dot.setAttribute('opacity', '0'));
+            tooltip.classList.remove('visible');
+        }
+
+        function showHover(index) {
+            const x = xAt(index);
+            crosshair.setAttribute('x1', x);
+            crosshair.setAttribute('x2', x);
+            crosshair.setAttribute('opacity', '1');
+
+            hoverDotEls.forEach(dot => {
+                const active = Number(dot.getAttribute('data-index')) === index;
+                dot.setAttribute('opacity', active ? '1' : '0');
+                if (active) dot.setAttribute('r', '5');
+                else dot.setAttribute('r', '4');
+            });
+
+            const rows = LIQUID_LEVEL_SERIES.map(series =>
+                `<div class="tooltip-row">
+                    <span class="tooltip-label"><span class="tooltip-dot" style="background:${series.color}"></span>${series.name}</span>
+                    <span class="tooltip-value" style="color:${series.color}">${series.data[index].toFixed(2)}m</span>
+                </div>`
+            ).join('');
+
+            tooltip.innerHTML = `<div class="tooltip-time">${formatChartHour(index)}</div>${rows}`;
+            tooltip.classList.add('visible');
+
+            const containerRect = container.getBoundingClientRect();
+            const pt = svg.createSVGPoint();
+            pt.x = x;
+            pt.y = pad.top;
+            const screenPt = pt.matrixTransform(svg.getScreenCTM());
+            let left = screenPt.x - containerRect.left - tooltip.offsetWidth / 2;
+            let top = screenPt.y - containerRect.top - tooltip.offsetHeight - 10;
+            left = Math.max(4, Math.min(left, containerRect.width - tooltip.offsetWidth - 4));
+            top = Math.max(4, top);
+            tooltip.style.left = `${left}px`;
+            tooltip.style.top = `${top}px`;
+        }
+
+        function indexFromEvent(e) {
+            const pt = svg.createSVGPoint();
+            pt.x = e.clientX;
+            pt.y = e.clientY;
+            const loc = pt.matrixTransform(svg.getScreenCTM().inverse());
+            if (loc.x < pad.left || loc.x > pad.left + plotW || loc.y < pad.top || loc.y > pad.top + plotH) return null;
+            const idx = Math.round((loc.x - pad.left) / plotW * (pointCount - 1));
+            return Math.max(0, Math.min(pointCount - 1, idx));
+        }
+
+        hitArea.addEventListener('mousemove', (e) => {
+            const idx = indexFromEvent(e);
+            if (idx === null) { hideHover(); return; }
+            showHover(idx);
+        });
+        hitArea.addEventListener('mouseleave', hideHover);
+        container._liquidLevelChart = chartMeta;
+    }
+
+    renderLiquidLevelChart();
+
+    const trendTooltip = document.getElementById('trend-comparison-tooltip');
+    const tooltipChange = document.getElementById('tooltip-change');
+    const tooltipRate = document.getElementById('tooltip-rate');
+    const trendTriggers = document.querySelectorAll('.trend-trigger');
+
+    trendTriggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const change = trigger.getAttribute('data-change');
+            const rate = trigger.getAttribute('data-rate');
+            const isPositive = parseFloat(change) >= 0;
+
+            tooltipChange.innerText = `${isPositive ? '+' : ''}${change} km³`;
+            tooltipRate.innerText = `${isPositive ? '+' : ''}${rate}%`;
+            tooltipChange.className = `text-label-sm font-bold font-data-display ${isPositive ? 'text-status-running' : 'text-error'}`;
+            tooltipRate.className = `text-label-sm font-bold font-data-display ${isPositive ? 'text-status-running' : 'text-error'}`;
+
+            const rect = trigger.getBoundingClientRect();
+            let left = rect.right + 10;
+            let top = rect.top - 10;
+            if (left + 220 > window.innerWidth) left = rect.left - 230;
+            if (top + 80 > window.innerHeight) top = window.innerHeight - 90;
+
+            trendTooltip.style.left = `${left}px`;
+            trendTooltip.style.top = `${top}px`;
+            trendTooltip.style.display = 'block';
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!popup.contains(e.target)) popup.style.display = 'none';
+        if (!trendTooltip.contains(e.target)) trendTooltip.style.display = 'none';
+    });
+
+    document.querySelectorAll('.glass-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.classList.add('glow-border');
+            card.style.transition = 'all 0.3s ease';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.classList.remove('glow-border');
+        });
+    });
+
+    setInterval(() => {
+        const dataDisplays = document.querySelectorAll('.font-data-display');
+        if (dataDisplays.length > 0) {
+            const target = dataDisplays[Math.floor(Math.random() * dataDisplays.length)];
+            if (target.id === 'tooltip-change' || target.id === 'tooltip-rate') return;
+            const originalText = target.innerText;
+            const num = parseFloat(originalText);
+            if (!isNaN(num)) {
+                const variation = (Math.random() - 0.5) * 0.05;
+                const newValue = (num + variation).toFixed(2);
+                const unit = originalText.replace(/[0-9.]/g, '').trim();
+                target.innerHTML = `${newValue}${unit ? `<span class="text-label-sm ml-0.5">${unit}</span>` : ''}`;
+            }
+        }
+    }, 3000);
+</script>
+<div class="fixed bottom-4 right-4 z-50 flex flex-col w-64 glass-card rounded-xl border border-error/30 bg-surface-container-lowest/80 backdrop-blur-xl shadow-2xl transition-all duration-300 overflow-hidden collapsed" id="real-time-alarm-module">
+<div class="flex items-center justify-between p-3 border-b border-outline-variant/20 bg-error/10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error animate-pulse text-[24px]">warning</span>
+<h3 class="text-label-sm font-bold text-on-surface">实时报警</h3>
+<span class="bg-error text-white text-[13px] px-1.5 py-0.5 rounded-full font-bold">3</span>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer text-[22px]" id="toggle-alarm-btn">keyboard_arrow_down</button>
+</div>
+<div class="p-2 max-h-40 overflow-hidden" id="alarm-list-container">
+<div class="flex flex-col gap-2 animate-marquee-vertical">
+<div class="flex items-center gap-2 p-2 rounded bg-surface-container-high/40 border-l-2 border-error">
+<span class="text-[14px] text-on-surface">1#泵站通讯故障</span>
+<span class="text-[12px] text-on-surface-variant ml-auto">10:45</span>
+</div>
+<div class="flex items-center gap-2 p-2 rounded bg-surface-container-high/40 border-l-2 border-error">
+<span class="text-[14px] text-on-surface">清水池液位超低</span>
+<span class="text-[12px] text-on-surface-variant ml-auto">10:42</span>
+</div>
+<div class="flex items-center gap-2 p-2 rounded bg-surface-container-high/40 border-l-2 border-error">
+<span class="text-[14px] text-on-surface">2#泵站出水压力异常</span>
+<span class="text-[12px] text-on-surface-variant ml-auto">10:38</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const btn = document.getElementById('toggle-alarm-btn');
+    const module = document.getElementById('real-time-alarm-module');
+    if (btn && module) {
+      btn.addEventListener('click', () => {
+        module.classList.toggle('collapsed');
+      });
+    }
+  })();
+</script>
+</body></html>
